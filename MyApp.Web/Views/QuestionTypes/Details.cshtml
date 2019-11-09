@@ -1,0 +1,67 @@
+﻿@model MyApp.Web.Data.Entities.QuestionType
+
+@{
+    ViewData["Title"] = "Detalles Tipo de Relevamiento";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Tipo de Relevamiento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id">Editar</a>
+    <a asp-action="AddQuestion" asp-route-id="@Model.Id" class=" btn btn-primary">Agregar ítem a relevar</a>
+    <a asp-action="Index" class="btn btn-success">Regresar</a>
+</div>
+
+@if (Model.Questions.Count == 0)
+{
+    <h5>No hay ítems a relevar todavía.</h5>
+}
+
+else
+
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Questions.FirstOrDefault().IdSubject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Questions.FirstOrDefault().Subject)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Questions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdSubject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+
+                    <td>
+                        <a asp-action="EditQuestion" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="DetailsQuestion" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                        <a asp-action="DeleteQuestion" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

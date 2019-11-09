@@ -1,0 +1,103 @@
+﻿@model MyApp.Web.Data.Entities.Technical
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h2>Técnico</h2>
+
+<div>
+    <h4>Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Document)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Document)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PhoneNumber)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class=" btn btn-warning">Editar</a>
+    <a asp-action="AddProperty" asp-route-id="@Model.Id" class=" btn btn-primary">Agregar Visita</a>
+    <a asp-action="Index" class=" btn btn-success">Regresar</a>
+</div>
+
+@if (Model.Visits.Count == 0)
+{
+    <h5>No tiene Visitas todavía.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visits.FirstOrDefault().Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visits.FirstOrDefault().State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visits.FirstOrDefault().Company)
+                </th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Visits)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company)
+                    </td>
+                    
+
+                    <td>
+                        <a asp-action="EditVisit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="DetailsVisit" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                        <a asp-action="DeleteVisit" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

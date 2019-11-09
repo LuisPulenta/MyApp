@@ -1,0 +1,20 @@
+﻿@model MyApp.Web.Data.Entities.State
+
+@{
+    ViewData["Title"] = "Borrar Estado de Visita";
+}
+
+<h2>Borrar Estado de Visita</h2>
+
+<h3>Está seguro de Borrar este Estado de Visita?</h3>
+<div>
+    
+    <hr />
+  
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Borrar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-success">Regresar</a>
+    </form>
+</div>

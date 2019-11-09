@@ -1,0 +1,96 @@
+﻿@model IEnumerable<MyApp.Web.Data.Entities.Company>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Empresas</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Empresa</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GRXX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GRYY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Document)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Address)
+            </th>
+            <th>
+                Teléfono
+            </th>
+            <th>
+                Visitas
+            </th>
+            <th>
+                Tipo de Empresa
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GRXX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GRYY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Document)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Visits.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyType.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
