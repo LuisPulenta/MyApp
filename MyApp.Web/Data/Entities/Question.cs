@@ -17,5 +17,4 @@ namespace MyApp.Web.Data.Entities
         public string Subject { get; set; }
         public QuestionType QuestionType { get; set; }
     }
-    
 }

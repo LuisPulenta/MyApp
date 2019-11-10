@@ -6,5 +6,6 @@ namespace MyApp.Web.Helpers
     public interface ICombosHelper
     {
         IEnumerable<SelectListItem> GetComboCompanyTypes();
+        IEnumerable<SelectListItem> GetComboQuestionsTypes();
     }
 }

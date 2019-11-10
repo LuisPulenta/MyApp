@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyApp.Web.Data;
 
 namespace MyApp.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191110122153_correction2")]
+    partial class correction2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,6 +158,25 @@ namespace MyApp.Web.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("MyApp.Web.Data.Entities.CompanyQuestionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyId");
+
+                    b.Property<int>("QuestionTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("QuestionTypeId");
+
+                    b.ToTable("CompanyQuestionType");
+                });
+
             modelBuilder.Entity("MyApp.Web.Data.Entities.CompanyType", b =>
                 {
                     b.Property<int>("Id")
@@ -169,25 +190,6 @@ namespace MyApp.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CompanyTypes");
-                });
-
-            modelBuilder.Entity("MyApp.Web.Data.Entities.CQType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CompanyId");
-
-                    b.Property<int?>("QuestionTypeId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("QuestionTypeId");
-
-                    b.ToTable("CQTypes");
                 });
 
             modelBuilder.Entity("MyApp.Web.Data.Entities.Manager", b =>
@@ -231,6 +233,8 @@ namespace MyApp.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CompaniesId");
+
                     b.Property<int?>("CompanyTypeId");
 
                     b.Property<string>("Name")
@@ -238,6 +242,8 @@ namespace MyApp.Web.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompaniesId");
 
                     b.HasIndex("CompanyTypeId");
 
@@ -421,15 +427,17 @@ namespace MyApp.Web.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("MyApp.Web.Data.Entities.CQType", b =>
+            modelBuilder.Entity("MyApp.Web.Data.Entities.CompanyQuestionType", b =>
                 {
                     b.HasOne("MyApp.Web.Data.Entities.Company", "Company")
-                        .WithMany("CQTypes")
-                        .HasForeignKey("CompanyId");
+                        .WithMany("CompanyQuestionTypes")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MyApp.Web.Data.Entities.QuestionType", "QuestionType")
-                        .WithMany("CQTypes")
-                        .HasForeignKey("QuestionTypeId");
+                        .WithMany("CompanyQuestionTypes")
+                        .HasForeignKey("QuestionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MyApp.Web.Data.Entities.Manager", b =>
@@ -448,6 +456,10 @@ namespace MyApp.Web.Migrations
 
             modelBuilder.Entity("MyApp.Web.Data.Entities.QuestionType", b =>
                 {
+                    b.HasOne("MyApp.Web.Data.Entities.Company", "Companies")
+                        .WithMany("QuestionTypes")
+                        .HasForeignKey("CompaniesId");
+
                     b.HasOne("MyApp.Web.Data.Entities.CompanyType", "CompanyType")
                         .WithMany("QuestionTypes")
                         .HasForeignKey("CompanyTypeId");
@@ -467,7 +479,7 @@ namespace MyApp.Web.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.HasOne("MyApp.Web.Data.Entities.State", "State")
-                        .WithMany("Visits")
+                        .WithMany("Visit")
                         .HasForeignKey("StateId");
 
                     b.HasOne("MyApp.Web.Data.Entities.Technical", "Technical")

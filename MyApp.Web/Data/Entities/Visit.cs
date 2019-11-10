@@ -16,5 +16,7 @@ namespace MyApp.Web.Data.Entities
         public Technical Technical { get; set; }
         public Company Company { get; set; }
         public State State { get; set; }
+        
+
     }
 }

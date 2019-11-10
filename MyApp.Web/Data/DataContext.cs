@@ -20,5 +20,6 @@ namespace MyApp.Web.Data
         public DbSet<Technical> Technicals { get; set; }
         public DbSet<Visit> Visits { get; set; }
         public DbSet<Manager> Managers { get; set; }
+        public DbSet<CQType> CQTypes { get; set; }
     }
 }

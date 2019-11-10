@@ -14,7 +14,6 @@ namespace MyApp.Web.Data.Entities
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Name { get; set; }
-
-        public ICollection<Visit> Visit { get; set; }
+        public ICollection<Visit> Visits { get; set; }
     }
 }

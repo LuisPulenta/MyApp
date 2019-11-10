@@ -28,5 +28,25 @@ namespace MyApp.Web.Helpers
             });
             return list;
         }
+        
+        public IEnumerable<SelectListItem> GetComboQuestionsTypes()
+        {
+            var list = _dataContext.QuestionTypes.Select(ct => new SelectListItem
+            {
+                Text = ct.Name,
+                Value = $"{ct.Id}"
+            }).OrderBy(p => p.Text).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Elija Tipo de Relevamiento...)",
+                Value = "0"
+            });
+            return list;
+        }
+
+
+
+
     }
 }

@@ -17,9 +17,13 @@ namespace MyApp.Web.Data.Entities
         public string GRXX { get; set; }
         [Display(Name = "Coord Y")]
         public string GRYY { get; set; }
-
- 
         public CompanyType CompanyType { get; set; }
+        public ICollection<CQType> CQTypes { get; set; }
         public ICollection<Visit> Visits { get; set; }
+        
+
+
+
+
     }
 }
