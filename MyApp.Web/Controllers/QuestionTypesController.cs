@@ -216,5 +216,78 @@ namespace MyApp.Web.Controllers
             
             return View(model);
         }
+
+        public async Task<IActionResult> EditQuestion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var question = await _dataContext.Questions
+                .Include (p=>p.QuestionType)
+                .FirstOrDefaultAsync(o => o.Id == id.Value);
+            if (question == null)
+            {
+                return NotFound();
+            };
+            var qst = new QuestionViewModel
+            {
+                Id=question.Id,
+                IdSubject = question.IdSubject,
+                QuestionTypeId = question.QuestionType.Id,
+                Subject = question.Subject,
+            };
+            return View(qst);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditQuestion(QuestionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var qst = new Question
+                {
+                    Id=model.Id,
+                    IdSubject = model.IdSubject,
+                    Subject = model.Subject,
+                };
+                _dataContext.Questions.Update(qst);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.QuestionTypeId}");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> DeleteQuestion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var question = await _dataContext.Questions
+               .Include(p => p.QuestionType)
+               .FirstOrDefaultAsync(o => o.Id == id.Value);
+            if (question == null)
+            {
+                return NotFound();
+            };
+            var qst = new QuestionViewModel
+            {
+                Id = question.Id,
+                IdSubject = question.IdSubject,
+                QuestionTypeId = question.QuestionType.Id,
+                Subject = question.Subject,
+            };
+            return View(qst);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteQuestion(QuestionViewModel model)
+        {
+            var state = await _dataContext.Questions.FindAsync(model.Id);
+            _dataContext.Questions.Remove(state);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{model.QuestionTypeId}");
+            
+        }
     }
 }

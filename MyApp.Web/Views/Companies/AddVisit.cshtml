@@ -1,0 +1,40 @@
+﻿@model MyApp.Web.Models.VisitViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Crear Visita</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddVisit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CompanyId" />
+            <input type="hidden" asp-for="StateId" />
+
+
+            <div class="form-group">
+                <label asp-for="TechnicalId" class="control-label"></label>
+                <select asp-for="TechnicalId" asp-items="Model.Technicals" class="form-control"></select>
+                <span asp-validation-for="TechnicalId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a asp-action="Details" asp-route-id="@Model.CompanyId" class="btn btn-success">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

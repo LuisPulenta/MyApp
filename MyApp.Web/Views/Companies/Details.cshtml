@@ -76,46 +76,101 @@
 
     <a asp-action="Edit" asp-route-id="@Model.Id" class=" btn btn-warning">Editar</a>
     <a asp-action="AddQuestionType" asp-route-id="@Model.Id" class=" btn btn-primary">Agregar Relevamiento</a>
+    <a asp-action="AddVisit" asp-route-id="@Model.Id" class=" btn btn-primary">Agregar Visita</a>
     <a asp-action="Index" class=" btn btn-success">Regresar</a>
 
 
 </div>
 
-@if (Model.CompanyQuestionTypes.Count == 0)
-{
-    <h5>No hay Relevamientos cargados.</h5>
-}
 
-else
+<div class="row">
+    <div class="col-md-6">
+        <div>
 
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Tipo de Relevamiento
-                </th>
-                
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.CompanyQuestionTypes)
+
+            <hr />
+
+
+
+
+
+            @if (Model.CompanyQuestionTypes.Count == 0)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.QuestionType.Name)
-                    </td>
-                    
-
-                    <td>
-                        <a asp-action="EditQuestion" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
-                        <a asp-action="DetailsQuestion" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
-                        <a asp-action="DeleteQuestion" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
-                    </td>
-                </tr>
+                <h5>No hay Relevamientos cargados.</h5>
             }
-        </tbody>
-    </table>
-}
 
+            else
+
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Tipo de Relevamiento
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CompanyQuestionTypes)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuestionType.Name)
+                                </td>
+
+
+                                <td>
+                                    <a asp-action="EditQuestion" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                                    <a asp-action="DetailsQuestion" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                                    <a asp-action="DeleteQuestion" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            <hr />
+            @if (Model.Visits.Count == 0)
+            {
+                <h5>No hay Visitas.</h5>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Visitas
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Visits)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+
+
+                                <td>
+                                    <a asp-action="EditVisit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                                    <a asp-action="DetailsVisit" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                                    <a asp-action="DeleteVisit" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

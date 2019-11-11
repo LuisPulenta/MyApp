@@ -295,7 +295,29 @@ namespace MyApp.Web.Controllers
 
             return View(model);
         }
+        public async Task<IActionResult> AddVisit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var company = await _dataContext.Companies.FindAsync(id.Value);
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            var model = new VisitViewModel
+            {
+                CompanyId = company.Id,
+                Technicals = _combosHelper.GetComboTechnicals(),
+                StateId=1,
+
+            };
+
+            return View(model);
+        }
 
 
     }

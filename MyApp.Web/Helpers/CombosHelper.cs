@@ -45,6 +45,22 @@ namespace MyApp.Web.Helpers
             return list;
         }
 
+        public IEnumerable<SelectListItem> GetComboTechnicals()
+        {
+            var list = _dataContext.Technicals.Select(ct => new SelectListItem
+            {
+                Text = ct.User.FullName,
+                Value = $"{ct.Id}"
+            }).OrderBy(p => p.Text).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Elija Técnico..)",
+                Value = "0"
+            });
+            return list;
+        }
+
 
 
 

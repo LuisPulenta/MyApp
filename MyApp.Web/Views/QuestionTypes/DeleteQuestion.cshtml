@@ -1,0 +1,21 @@
+﻿@model MyApp.Web.Models.QuestionViewModel
+
+@{
+    ViewData["Title"] = "Borrar Item a Relevar";
+}
+
+<h2>Borrar Item a Relevar</h2>
+
+<h3>Está seguro de Borrar este Item a Relevar?</h3>
+<div>
+
+    <hr />
+
+
+    <form asp-action="DeleteQuestion">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="QuestionTypeId" />
+        <input type="submit" value="Borrar" class="btn btn-danger" />
+        <a asp-action="Details" asp-route-id="@Model.QuestionTypeId" class="btn btn-success">Regresar</a>
+    </form>
+</div>
