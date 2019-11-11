@@ -9,9 +9,9 @@ namespace MyApp.Web.Models
 {
     public class CompanyQuestionTypeViewModel
     {
-        public Company Company { get; set; }
-        public QuestionType QuestionType { get; set; }
         public int QuestionTypeId { get; set; }
+        public int CompanyId { get; set; }
+        
         public IEnumerable<SelectListItem> QuestionTypes { get; set; }
     }
 }

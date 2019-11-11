@@ -12,9 +12,9 @@ namespace MyApp.Web.Data.Entities
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Name { get; set; }
         public ICollection<Question> Questions { get; set; }
-        
+        public ICollection<CompanyQuestionType> CompanyQuestionTypes { get; set; }
         public CompanyType CompanyType { get; set; }
-        public ICollection<CQType> CQTypes { get; set; }
+        
 
     }
 }

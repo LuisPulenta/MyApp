@@ -81,3 +81,41 @@
 
 </div>
 
+@if (Model.CompanyQuestionTypes.Count == 0)
+{
+    <h5>No hay Relevamientos cargados.</h5>
+}
+
+else
+
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tipo de Relevamiento
+                </th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CompanyQuestionTypes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionType.Name)
+                    </td>
+                    
+
+                    <td>
+                        <a asp-action="EditQuestion" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="DetailsQuestion" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                        <a asp-action="DeleteQuestion" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
