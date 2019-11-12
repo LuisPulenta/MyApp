@@ -105,7 +105,8 @@ namespace MyApp.Web.Data
             if (!_context.Companies.Any())
             {
                 AddCompany(customer, "YPF La Garlopa", "-34.4704034", "-58.71428245", companytype);
-                
+                AddCompany(customer, "Esso La Agaromba", "-34.48", "-58.72428245", companytype);
+
                 await _context.SaveChangesAsync();
             }
         }

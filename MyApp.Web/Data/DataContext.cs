@@ -19,6 +19,7 @@ namespace MyApp.Web.Data
         public DbSet<State> States { get; set; }
         public DbSet<Technical> Technicals { get; set; }
         public DbSet<Visit> Visits { get; set; }
+        public DbSet<VisitDetail> VisitDetails { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<CompanyQuestionType> CompanyQuestionTypes { get; set; }
     }

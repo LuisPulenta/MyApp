@@ -26,10 +26,12 @@ namespace MyApp.Web.Controllers
         public IActionResult Index()
         {
             return View(_dataContext.Companies
-                .Include(c => c.User)
-                .Include(c => c.Visits)
+                .Include(u => u.User)
+                .Include(v => v.Visits)
                 .Include(c => c.CompanyQuestionTypes)
-                .ThenInclude(p => p.QuestionType));
+                .ThenInclude(c => c.QuestionType)
+                .ThenInclude(c => c.Questions)
+                );
         }
         // GET: Companies/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -41,8 +43,17 @@ namespace MyApp.Web.Controllers
             var company = await _dataContext.Companies
                 .Include(o => o.User)
                 .Include(v => v.Visits)
-                .Include(x => x.CompanyQuestionTypes)
-                .ThenInclude(p => p.QuestionType)
+                .ThenInclude(v => v.Technical)
+                .ThenInclude(v => v.User)
+                .Include(x => x.Visits)
+                .ThenInclude(x => x.State)
+
+                .Include(c => c.CompanyQuestionTypes)
+                .ThenInclude(c => c.QuestionType)
+                .ThenInclude(c => c.Questions)
+
+               
+                
                 .Include(ct => ct.CompanyType)
                  .FirstOrDefaultAsync(o => o.Id == id);
             if (company == null)
@@ -287,6 +298,8 @@ namespace MyApp.Web.Controllers
                 {
                     Company = company,
                     QuestionType=questionType,
+                    
+                    
                 };
                 _dataContext.CompanyQuestionTypes.Add(qst);
                 await _dataContext.SaveChangesAsync();
@@ -319,6 +332,75 @@ namespace MyApp.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddVisit(VisitViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var company = await _dataContext.Companies
+               .Include(o => o.User)
+               .Include(v => v.Visits)
+               .Include(c => c.CompanyQuestionTypes)
+               .ThenInclude(c => c.QuestionType)
+               .ThenInclude(c => c.Questions)
+               .Include(ct => ct.CompanyType)
+               .FirstOrDefaultAsync(o => o.Id == model.CompanyId);
 
+                var technical = await _dataContext.Technicals.FindAsync(model.TechnicalId);
+                var state = await _dataContext.States.FindAsync(model.StateId);
+
+
+                foreach (var vst in company.CompanyQuestionTypes)
+                {
+                    foreach (var vst2 in vst.QuestionType.Questions)
+                    {
+                        //armar fila
+                        var questionType = await _dataContext.QuestionTypes.FindAsync(model.QuestionTypeId);
+                        
+                        var question = await _dataContext.Questions.FindAsync(model.CompanyId);
+                        var vst3= new VisitDetail
+                        {
+                            CompanyId = model.CompanyId,
+                            TechnicalId = model.TechnicalId,
+                            Date = model.Date,
+                            StateId = state.Id,
+                            QuestionTypeId = vst2.QuestionType.Id,
+                            IdSubject = vst2.IdSubject,
+                            Note = string.Empty,
+                            ImageUrl1 = string.Empty,
+                            ImageUrl2 = string.Empty,
+                            ImageUrl3 = string.Empty,
+                            ImageUrl4 = string.Empty,
+                            Company = company,
+                            Technical = technical,
+                            State = state,
+                            QuestionType = questionType,
+                            Question = question,
+                        };
+
+                        //guardar fila
+                        _dataContext.VisitDetails.Add(vst3);
+                        await _dataContext.SaveChangesAsync();
+                    }
+
+
+                }
+                var vst4 = new Visit
+                {
+                    Date = model.Date,
+                    Company = company,
+                    Technical = technical,
+                    State = state,
+                };
+
+                //guardar fila
+                _dataContext.Visits.Add(vst4);
+                await _dataContext.SaveChangesAsync();
+                //Volver a la página
+                return RedirectToAction($"{nameof(Details)}/{model.CompanyId}");
+            }
+
+            return View(model);
+        }
     }
 }

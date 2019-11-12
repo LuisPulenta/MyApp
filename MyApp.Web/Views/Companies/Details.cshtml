@@ -117,6 +117,7 @@
                         {
                             <tr>
                                 <td>
+
                                     @Html.DisplayFor(modelItem => item.QuestionType.Name)
                                 </td>
 
@@ -146,7 +147,13 @@
                     <thead>
                         <tr>
                             <th>
-                                Visitas
+                                Fecha
+                            </th>
+                            <th>
+                                Técnico
+                            </th>
+                            <th>
+                                Estado
                             </th>
 
                             <th></th>
@@ -155,18 +162,23 @@
                     <tbody>
                         @foreach (var item in Model.Visits)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
-                                </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Technical.User.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State.Name)
+                            </td>
 
-
-                                <td>
-                                    <a asp-action="EditVisit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
-                                    <a asp-action="DetailsVisit" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
-                                    <a asp-action="DeleteVisit" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
-                                </td>
-                            </tr>
+                            <td>
+                                <a asp-action="EditVisit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                                <a asp-action="DetailsVisit" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                                <a asp-action="DeleteVisit" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
