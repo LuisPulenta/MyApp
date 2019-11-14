@@ -8,5 +8,6 @@ namespace MyApp.Web.Helpers
         IEnumerable<SelectListItem> GetComboCompanyTypes();
         IEnumerable<SelectListItem> GetComboQuestionsTypes();
         IEnumerable<SelectListItem> GetComboTechnicals();
+        IEnumerable<SelectListItem> GetComboRoles();
     }
 }

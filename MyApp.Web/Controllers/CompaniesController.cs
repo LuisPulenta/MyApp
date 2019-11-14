@@ -346,7 +346,9 @@ namespace MyApp.Web.Controllers
                .Include(ct => ct.CompanyType)
                .FirstOrDefaultAsync(o => o.Id == model.CompanyId);
 
-                var technical = await _dataContext.Technicals.FindAsync(model.TechnicalId);
+                var technical = await _dataContext.Technicals
+                 .Include(o => o.User).FirstOrDefaultAsync(o => o.Id== model.TechnicalId);
+
                 var state = await _dataContext.States.FindAsync(model.StateId);
 
 
@@ -355,27 +357,27 @@ namespace MyApp.Web.Controllers
                     foreach (var vst2 in vst.QuestionType.Questions)
                     {
                         //armar fila
-                        var questionType = await _dataContext.QuestionTypes.FindAsync(model.QuestionTypeId);
                         
+                        var questionType = await _dataContext.QuestionTypes.FindAsync(model.QuestionTypeId);
                         var question = await _dataContext.Questions.FindAsync(model.CompanyId);
                         var vst3= new VisitDetail
                         {
                             CompanyId = model.CompanyId,
+                            CompanyName=company.Name,
                             TechnicalId = model.TechnicalId,
+                            TechnicalName=technical.User.FullName,
                             Date = model.Date,
                             StateId = state.Id,
+                            StateName=state.Name,
                             QuestionTypeId = vst2.QuestionType.Id,
+                            QuestionTypeName=vst2.QuestionType.Name,
                             IdSubject = vst2.IdSubject,
+                            Subject=vst2.Subject,
                             Note = string.Empty,
                             ImageUrl1 = string.Empty,
                             ImageUrl2 = string.Empty,
                             ImageUrl3 = string.Empty,
                             ImageUrl4 = string.Empty,
-                            Company = company,
-                            Technical = technical,
-                            State = state,
-                            QuestionType = questionType,
-                            Question = question,
                         };
 
                         //guardar fila

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace MyApp.Web.Data.Entities
+namespace MyApp.Common.Models
 {
-    public class VisitDetail
+    public class VisitResponse
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
@@ -15,7 +17,7 @@ namespace MyApp.Web.Data.Entities
         public int QuestionTypeId { get; set; }
         public string QuestionTypeName { get; set; }
         public int? IdSubject { get; set; }
-        public string Subject{ get; set; }
+        public string Subject { get; set; }
         public string Note { get; set; }
         public string ImageUrl1 { get; set; }
         public string ImageUrl2 { get; set; }

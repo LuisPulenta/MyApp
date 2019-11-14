@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyApp.Web.Models
 {
@@ -45,5 +47,13 @@ namespace MyApp.Web.Models
         [StringLength(20, MinimumLength = 6, ErrorMessage = "El campo {0} debe tener entre {2} y {1} caracteres.")]
         [Compare("Password")]
         public string PasswordConfirm { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [Display(Name = "Registrarse como")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debe elegir un Rol.")]
+        public int RoleId { get; set; }
+
+        public IEnumerable<SelectListItem> Roles { get; set; }
+
     }
 }

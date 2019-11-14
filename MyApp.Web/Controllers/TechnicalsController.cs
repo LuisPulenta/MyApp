@@ -19,11 +19,13 @@ namespace MyApp.Web.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
+        private readonly IMailHelper _mailHelper;
 
-        public TechnicalsController(DataContext context,IUserHelper userHelper)
+        public TechnicalsController(DataContext context,IUserHelper userHelper,IMailHelper mailHelper)
         {
             _dataContext = context;
             _userHelper = userHelper;
+            _mailHelper = mailHelper;
         }
 
         // GET: Technicals
@@ -57,8 +59,10 @@ namespace MyApp.Web.Controllers
         // GET: Technicals/Create
         public IActionResult Create()
         {
-            return View();
+            var view = new AddUserViewModel { RoleId = 2 };
+            return View(view);
         }
+
 
         // POST: Technicals/Create
 
@@ -83,6 +87,21 @@ namespace MyApp.Web.Controllers
 
                 _dataContext.Technicals.Add(technical);
                 await _dataContext.SaveChangesAsync();
+
+                var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                var tokenLink = Url.Action("ConfirmEmail", "Account", new
+                {
+                    userid = user.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
+
+                _mailHelper.SendMail(model.Username, "MyApp - Email confirmation", $"<h1>MyApp - Email Confirmation</h1>" +
+                    $"Para autorizar el Usuario, " +
+                    $"por favor haga clic en este link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+
+
+
+
                 return RedirectToAction(nameof(Index));
             }
 

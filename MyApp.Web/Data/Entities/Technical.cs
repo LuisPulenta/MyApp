@@ -7,6 +7,7 @@ namespace MyApp.Web.Data.Entities
         public int Id { get; set; }
         public User User { get; set; }
         public ICollection<Visit> Visits { get; set; }
+        public ICollection<VisitDetail> VisitDetails { get; set; }
 
     }
 }
