@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyApp.Prism.Views.VisitsPage"
+             Title="{Binding Title}">
+  <StackLayout Padding="10">
+    <ListView HasUnevenRows="True"
+              SeparatorVisibility="None"
+              IsRefreshing="{Binding IsRefreshing}"
+              ItemsSource="{Binding Visits}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Frame CornerRadius="20"
+                   HasShadow="True"
+                   Margin="0,0,0,5">
+              <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectVisitCommand}" />
+              </Frame.GestureRecognizers>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+               
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="Micro"
+                       Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}"
+                       TextColor="Black"></Label>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       FontSize="Micro"
+                       Text="{Binding CompanyName}"
+                       TextColor="Black"></Label>
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       FontSize="Micro"
+                       Text="{Binding StateName}"
+                       TextColor="Black"></Label>
+                <Image Grid.Row="0"
+                       Grid.Column="3"
+                       Source="ic_chevron_right"
+                       WidthRequest="40"></Image>
+              </Grid>
+            </Frame>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

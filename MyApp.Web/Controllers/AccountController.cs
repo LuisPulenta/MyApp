@@ -159,7 +159,7 @@ namespace MyApp.Web.Controllers
                 {
                     var technical = new Technical
                     {
-                        VisitDetails = new List<VisitDetail>(),
+                        //VisitDetails = new List<VisitDetail>(),
                         Visits = new List<Visit>(),
                         User = user
                     };

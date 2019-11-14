@@ -14,7 +14,7 @@ namespace MyApp.Web.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TechnicalsController : ControllerBase
     {
         private readonly DataContext _dataContext;
@@ -61,7 +61,12 @@ namespace MyApp.Web.Controllers.API
         {
             var technical = await _dataContext.Technicals
                 .Include(o => o.User)
-                .Include(o => o.VisitDetails)
+                .Include(o => o.Visits)
+                .ThenInclude(o => o.Company)
+                .Include(o => o.Visits)
+                .ThenInclude(o => o.Technical)
+                .Include(o => o.Visits)
+                .ThenInclude(o => o.State)
                 .FirstOrDefaultAsync(o => o.User.UserName.ToLower().Equals(emailRequest.Email.ToLower()));
 
             var response = new TechnicalResponse
@@ -71,29 +76,56 @@ namespace MyApp.Web.Controllers.API
                 LastName = technical.User.LastName,
                 Address = technical.User.Address,
                 FullName = technical.User.FullName,
-                
-                Visits = technical.VisitDetails?.Select(p => new Common.Models.VisitResponse
+
+                Visits = technical.Visits?.Select(p => new Common.Models.VisitResponse2
                 {
-                    
-                    CompanyId = p.CompanyId,
-                    CompanyName = p.CompanyName,
-                    TechnicalId = p.TechnicalId,
-                    TechnicalName = p.TechnicalName,
+                    CompanyId= p.Company.Id,
+                    CompanyName = p.Company.Name,
                     Date = p.Date,
-                    StateId = p.StateId,
-                    StateName = p.StateName,
-                    QuestionTypeId = p.QuestionTypeId,
-                    QuestionTypeName = p.QuestionTypeName,
-                    IdSubject = p.IdSubject,
-                    Subject = p.Subject,
-                    Note = p.Note,
-                    ImageUrl1 = p.ImageUrl1,
-                    ImageUrl2 = p.ImageUrl2,
-                    ImageUrl3 = p.ImageUrl3,
-                    ImageUrl4 = p.ImageUrl4,
+                    StateId = p.State.Id,
+                    StateName = p.State.Name,
+                    TechnicalId = p.Technical.Id,
+                    TechnicalName = p.Technical.User.FullName,
                 }).ToList()
             };
             return Ok(response);
         }
+
+
+              
+
+
+        private async Task<IActionResult> GetTechnicalAsync2(EmailRequest emailRequest)
+        {
+            var technical = await _dataContext.Technicals
+                .Include(o => o.User)
+                .Include(o => o.Visits)
+                .FirstOrDefaultAsync(o => o.User.UserName.ToLower().Equals(emailRequest.Email.ToLower()));
+
+            var response = new TechnicalResponse2
+            {
+                Document = technical.User.Document,
+                FirstName = technical.User.FirstName,
+                LastName = technical.User.LastName,
+                Address = technical.User.Address,
+                FullName = technical.User.FullName,
+
+                Visits2= technical.Visits?.Select(p => new Common.Models.VisitResponse2
+                {
+                    Id=p.Id,
+                    CompanyId=p.Company.Id,
+                    CompanyName=p.Company.Name,
+                    StateId=p.State.Id,
+                    StateName=p.State.Name,
+                    TechnicalId=p.Technical.Id,
+                    TechnicalName=p.Technical.User.FullName,
+                    Date = p.Date,
+                      
+                 
+                }).ToList()
+            };
+            return Ok(response);
+        }
+
     }
 }

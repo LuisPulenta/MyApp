@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyApp.Web.Data.Entities
@@ -6,6 +6,8 @@ namespace MyApp.Web.Data.Entities
     public class Visit
     {
         public int Id { get; set; }
+
+        public string VisitId { get; set; }
 
         [Display(Name = "Fecha")]
         [Required(ErrorMessage = "El campo {0} es requerido.")]

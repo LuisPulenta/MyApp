@@ -13,10 +13,6 @@ namespace MyApp.Web.Data.Entities
         public string Name { get; set; }
         public ICollection<Question> Questions { get; set; }
         public ICollection<CompanyQuestionType> CompanyQuestionTypes { get; set; }
-        
-        public CompanyType CompanyType { get; set; }
-        
-
-    }
+        }
 }
 

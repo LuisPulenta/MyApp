@@ -5,6 +5,7 @@ using MyApp.Web.Data;
 using MyApp.Web.Data.Entities;
 using MyApp.Web.Helpers;
 using MyApp.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -350,6 +351,25 @@ namespace MyApp.Web.Controllers
                  .Include(o => o.User).FirstOrDefaultAsync(o => o.Id== model.TechnicalId);
 
                 var state = await _dataContext.States.FindAsync(model.StateId);
+                
+                var guid = Guid.NewGuid().ToString();
+
+                var vst4 = new Visit
+                {
+                    Date = model.Date,
+                    Company = company,
+                    Technical = technical,
+                    State = state,
+                    VisitId=guid,
+                };
+
+                //guardar fila
+                _dataContext.Visits.Add(vst4);
+                await _dataContext.SaveChangesAsync();
+                
+
+
+
 
 
                 foreach (var vst in company.CompanyQuestionTypes)
@@ -362,17 +382,18 @@ namespace MyApp.Web.Controllers
                         var question = await _dataContext.Questions.FindAsync(model.CompanyId);
                         var vst3= new VisitDetail
                         {
+                            VisitId = guid,
                             CompanyId = model.CompanyId,
-                            CompanyName=company.Name,
+                            CompanyName = company.Name,
                             TechnicalId = model.TechnicalId,
-                            TechnicalName=technical.User.FullName,
+                            TechnicalName = technical.User.FullName,
                             Date = model.Date,
                             StateId = state.Id,
-                            StateName=state.Name,
+                            StateName = state.Name,
                             QuestionTypeId = vst2.QuestionType.Id,
-                            QuestionTypeName=vst2.QuestionType.Name,
+                            QuestionTypeName = vst2.QuestionType.Name,
                             IdSubject = vst2.IdSubject,
-                            Subject=vst2.Subject,
+                            Subject = vst2.Subject,
                             Note = string.Empty,
                             ImageUrl1 = string.Empty,
                             ImageUrl2 = string.Empty,
@@ -387,17 +408,7 @@ namespace MyApp.Web.Controllers
 
 
                 }
-                var vst4 = new Visit
-                {
-                    Date = model.Date,
-                    Company = company,
-                    Technical = technical,
-                    State = state,
-                };
-
-                //guardar fila
-                _dataContext.Visits.Add(vst4);
-                await _dataContext.SaveChangesAsync();
+                
                 //Volver a la página
                 return RedirectToAction($"{nameof(Details)}/{model.CompanyId}");
             }
