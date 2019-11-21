@@ -1,5 +1,7 @@
-﻿using MyApp.Common.Models;
+﻿using MyApp.Common.Helpers;
+using MyApp.Common.Models;
 using MyApp.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -12,6 +14,7 @@ namespace MyApp.Prism.ViewModels
         private string _password;
         private bool _isRunning;
         private bool _isEnabled;
+        private bool _isRemember;
         private DelegateCommand _loginCommand;
 
         public LoginPageViewModel(
@@ -48,7 +51,11 @@ namespace MyApp.Prism.ViewModels
             get => _isEnabled;
             set => SetProperty(ref _isEnabled, value);
         }
-
+        public bool IsRemember
+        {
+            get => _isRemember;
+            set => SetProperty(ref _isRemember, value);
+        }
         private async void Login()
         {
             if (string.IsNullOrEmpty(Email))
@@ -102,18 +109,21 @@ namespace MyApp.Prism.ViewModels
                 "api",
                 "/Technicals/GetTechnicalByEmail",
                 "bearer",
-        token.Token,
+                token.Token,
                 Email);
             if (!response2.IsSuccess)
             {
                 IsRunning = false;
                 IsEnabled = true;
                 await App.Current.MainPage.DisplayAlert("Error", "Problema con datos de este usuario.", "Aceptar");
-                Password = string.Empty;
+                //Password = string.Empty;
                 return;
             }
 
             var technical = response2.Result;
+            Settings.Technical = JsonConvert.SerializeObject(technical);
+            Settings.Token = JsonConvert.SerializeObject(token);
+            Settings.IsRemembered = IsRemember;
             var parameters = new NavigationParameters
             {
                 {"technical",technical}

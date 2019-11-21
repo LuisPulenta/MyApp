@@ -352,7 +352,7 @@ namespace MyApp.Web.Controllers
 
                 var state = await _dataContext.States.FindAsync(model.StateId);
                 
-                var guid = Guid.NewGuid().ToString();
+                
 
                 var vst4 = new Visit
                 {
@@ -360,7 +360,7 @@ namespace MyApp.Web.Controllers
                     Company = company,
                     Technical = technical,
                     State = state,
-                    VisitId=guid,
+                
                 };
 
                 //guardar fila
@@ -382,14 +382,14 @@ namespace MyApp.Web.Controllers
                         var question = await _dataContext.Questions.FindAsync(model.CompanyId);
                         var vst3= new VisitDetail
                         {
-                            VisitId = guid,
-                            CompanyId = model.CompanyId,
-                            CompanyName = company.Name,
-                            TechnicalId = model.TechnicalId,
-                            TechnicalName = technical.User.FullName,
-                            Date = model.Date,
-                            StateId = state.Id,
-                            StateName = state.Name,
+                            Visit=vst4,
+                            //CompanyId = model.CompanyId,
+                            //CompanyName = company.Name,
+                            //TechnicalId = model.TechnicalId,
+                            //TechnicalName = technical.User.FullName,
+                            //Date = model.Date,
+                            //StateId = state.Id,
+                            //StateName = state.Name,
                             QuestionTypeId = vst2.QuestionType.Id,
                             QuestionTypeName = vst2.QuestionType.Name,
                             IdSubject = vst2.IdSubject,

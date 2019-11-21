@@ -9,7 +9,7 @@ using MyApp.Web.Data.Entities;
 using MyApp.Web.Helpers;
 using MyApp.Web.Models;
 
-namespace MyLeasing.Web.Controllers
+namespace MyApp.Web.Controllers
 {
     [Authorize(Roles = "Manager")]
     public class ManagersController : Controller

@@ -33,6 +33,7 @@ namespace MyApp.Prism
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<VisitsPage, VisitsPageViewModel>();
+            containerRegistry.RegisterForNavigation<VisitPage, VisitPageViewModel>();
         }
     }
 }

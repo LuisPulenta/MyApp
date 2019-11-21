@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Web.Data.Entities;
+
 namespace MyApp.Web.Data
 {
     public class DataContext : IdentityDbContext<User>

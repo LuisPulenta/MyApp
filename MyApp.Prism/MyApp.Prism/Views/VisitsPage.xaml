@@ -41,7 +41,7 @@
                 <Label Grid.Row="0"
                        Grid.Column="2"
                        FontSize="Micro"
-                       Text="{Binding StateName}"
+                       Text="{Binding State}"
                        TextColor="Black"></Label>
                 <Image Grid.Row="0"
                        Grid.Column="3"

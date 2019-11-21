@@ -9,6 +9,6 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Password { get; set; }
-        public int RoleId { get; set; } // 1: Owner, 2: Lessee
+        public int RoleId { get; set; } // 1: Technical, 2: Customer
     }
 }
