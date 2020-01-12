@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             BackgroundColor="Gray"
              x:Class="MyApp.Prism.Views.VisitPage"
              Title="{Binding Title}">
-  <StackLayout Padding="10">
+  <StackLayout Padding="5">
     <ListView HasUnevenRows="True"
               SeparatorVisibility="None"
               IsRefreshing="{Binding IsRefreshing}"
@@ -13,28 +14,80 @@
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <Frame CornerRadius="20"
+            <Frame CornerRadius="5"
+                   BackgroundColor="White"
                    HasShadow="True"
                    Margin="0,0,0,5">
               <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SelectQuestionCommand}" />
               </Frame.GestureRecognizers>
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       FontSize="Micro"
+              <StackLayout>
+                <Label FontSize="Medium"
+                       FontAttributes="Bold"
+                       Grid.ColumnSpan="6"
                        Text="{Binding QuestionTypeName}"
                        TextColor="Black"></Label>
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       FontSize="Micro"
-                       Text="{Binding Subject}"
-                       TextColor="Black"></Label>
-              </Grid>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <Label Grid.Row="0"
+                         Grid.Column="0"
+                         FontSize="Small"
+                         FontAttributes="Italic"
+                         Text="{Binding Subject}"
+                         TextColor="Blue"></Label>
+                  <Label Grid.Row="0"
+                         Grid.Column="1"
+                         FontSize="Medium"
+                         WidthRequest="35"
+                         Text="{Binding Note}"
+                         BackgroundColor="LightGreen"
+                         TextColor="Black"></Label>
+                  <Image Grid.Row="0"
+                         Grid.Column="2"
+                         Source="ic_chevron_right"
+                         VerticalOptions="Center">
+                  </Image>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="100">
+                    </RowDefinition>
+                  </Grid.RowDefinitions>
+                  <Image Grid.Row="0"
+                         Grid.Column="0"
+                         Source="{Binding ImageFullPath1}"
+                         VerticalOptions="Center"></Image>
+                  <Image Grid.Row="0"
+                         Grid.Column="1"
+                         Source="{Binding ImageFullPath2}"
+                         VerticalOptions="Center"></Image>
+                  <Image Grid.Row="0"
+                         Grid.Column="2"
+                         Source="{Binding ImageFullPath3}"
+                         VerticalOptions="Center"></Image>
+                  <Image Grid.Row="0"
+                         Grid.Column="3"
+                         Source="{Binding ImageFullPath4}"
+                         VerticalOptions="Center"></Image>
+                </Grid>
+              </StackLayout>
+              
+                
+              
+              
+             
+                
+               
             </Frame>
           </ViewCell>
         </DataTemplate>
@@ -42,3 +95,5 @@
     </ListView>
   </StackLayout>
 </ContentPage>
+
+    

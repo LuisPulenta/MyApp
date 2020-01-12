@@ -382,14 +382,7 @@ namespace MyApp.Web.Controllers
                         var question = await _dataContext.Questions.FindAsync(model.CompanyId);
                         var vst3= new VisitDetail
                         {
-                            Visit=vst4,
-                            //CompanyId = model.CompanyId,
-                            //CompanyName = company.Name,
-                            //TechnicalId = model.TechnicalId,
-                            //TechnicalName = technical.User.FullName,
-                            //Date = model.Date,
-                            //StateId = state.Id,
-                            //StateName = state.Name,
+                            Visit = vst4,
                             QuestionTypeId = vst2.QuestionType.Id,
                             QuestionTypeName = vst2.QuestionType.Name,
                             IdSubject = vst2.IdSubject,

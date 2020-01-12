@@ -2,22 +2,66 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyApp.Prism.Views.LoginPage"
+             BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
-  <StackLayout Padding="10">
-    <Label Text="Email" />
-    <Entry Keyboard="Email"
-           Placeholder="Enter your email..."
-           Text="{Binding Email}" />
-    <Label Text="Password" />
-    <Entry IsPassword="True"
-           Placeholder="Enter your password..."
-           Text="{Binding Password}" />
-    <ActivityIndicator IsRunning="{Binding IsRunning}"
-                       VerticalOptions="CenterAndExpand" />
-    <Button Command="{Binding LoginCommand}"
-            IsEnabled="{Binding IsEnabled}"
-            Text="Login" />
-  </StackLayout>
+  <ScrollView>
+    <AbsoluteLayout>
+      <StackLayout Padding="10"
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   AbsoluteLayout.LayoutFlags="All">
+        <Image Margin="20"
+               Source="logo"
+               WidthRequest="140"></Image>
+        <Label Text="Email" />
+        <Entry Keyboard="Email"
+               Placeholder="Ingrese email..."
+               Text="{Binding Email}" />
+        <Label Text="Password" />
+        <Entry IsPassword="True"
+               Placeholder="Ingrese password..."
+               Text="{Binding Password}" />
+        <StackLayout HorizontalOptions="Center"
+                     Orientation="Horizontal">
+          <Label Text="Recordarme en este dispositivo"
+                 VerticalOptions="Center"/>
+          <CheckBox IsChecked="{Binding IsRemember}" />
+        </StackLayout>
+        <Label HorizontalOptions="Center"
+               Text="Olvidó su password?"
+               TextColor="{StaticResource colorDanger}">
+          <Label.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+          </Label.GestureRecognizers>
+        </Label>
+        <StackLayout
+          Orientation="Horizontal"
+                     VerticalOptions="EndAndExpand">
+          <Button Command="{Binding LoginCommand}"
+                  IsEnabled="{Binding IsEnabled}"
+                  Text="Ingresar" />
+          <Button Command="{Binding RegisterCommand}"
+                  IsEnabled="{Binding IsEnabled}"
+                  Style="{StaticResource secondaryButton}"
+                  Text="Registrarse" />
+        </StackLayout>
+
+      </StackLayout>
+      <busyindicator:SfBusyIndicator AnimationType="Gear"
+                                     AbsoluteLayout.LayoutBounds=".5,.9,.5,.5"
+                                     AbsoluteLayout.LayoutFlags="All"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="Center"
+                                     TextColor="{StaticResource colorDanger}"
+                                     IsVisible="{Binding IsRunning}"
+                                     Title="Cargando..."
+                                     VerticalOptions="Center"
+                                     ViewBoxWidth="50"
+                                     ViewBoxHeight="50" />
+    </AbsoluteLayout>
+
+  </ScrollView>
+
 </ContentPage>

@@ -17,5 +17,12 @@ namespace MyApp.Common.Services
             string controller,
             TokenRequest request);
         Task<bool> CheckConnectionAsync(string url);
+
+        Task<Response<object>> PutAsync<T>(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            T model,
+            int id);
     }
 }

@@ -9,13 +9,18 @@ namespace MyApp.Common.Helpers
         private const string _technical = "technical";
         private const string _isRemembered = "IsRemembered";
         private const string _visit = "visit";
+        private const string _question = "question";
 
         private static readonly string _settingsDefault = string.Empty;
         private static readonly bool _boolDefault = false;
 
         private static ISettings AppSettings => CrossSettings.Current;
 
-
+        public static string Question
+        {
+            get => AppSettings.GetValueOrDefault(_question, _settingsDefault);
+            set => AppSettings.AddOrUpdateValue(_question, value);
+        }
         public static string Visit
         {
             get => AppSettings.GetValueOrDefault(_visit, _settingsDefault);

@@ -120,6 +120,49 @@ namespace MyApp.Common.Services
             return await CrossConnectivity.Current.IsRemoteReachable(url);
         }
 
+        public async Task<Response<object>> PutAsync<T>(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            T model,
+            int id)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                var url = $"{servicePrefix}{controller}/{id}";
+                var response = await client.PutAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response<object>
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                return new Response<object>
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
     }
 }
 

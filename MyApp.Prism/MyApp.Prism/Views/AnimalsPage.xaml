@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyApp.Prism.Views.AnimalsPage"
+             Title="Animals">
+  <ListView x:Name="lstView"
+            ItemsSource="{Binding groupedAnimal}"
+            IsGroupingEnabled="true"
+            GroupDisplayBinding="{Binding Type}"
+            GroupShortNameBinding="{Binding InitialLetter}">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <TextCell Text="{Binding Name}"
+                  TextColor="Blue"
+                  
+                  Detail="{Binding Race}" />
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+</ContentPage>

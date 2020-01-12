@@ -22,8 +22,9 @@ namespace MyApp.Prism
 
         protected override async void OnInitialized()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY2MzIyQDMxMzcyZTMzMmUzMFVnNW5KSnM2dTZmRDljWm1RYTduQXFwRmNKSzVPWk1lT1JGSFRySXZCUTA9");
             InitializeComponent();
-
+            //await NavigationService.NavigateAsync("NavigationPage/AnimalsPage");
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 
@@ -34,6 +35,13 @@ namespace MyApp.Prism
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<VisitsPage, VisitsPageViewModel>();
             containerRegistry.RegisterForNavigation<VisitPage, VisitPageViewModel>();
+
+            containerRegistry.RegisterForNavigation<AnimalsPage, AnimalsPageViewModel>();
+            containerRegistry.RegisterForNavigation<VisitDetailPage, VisitDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<TakePicture1Page, TakePicture1PageViewModel>();
+            containerRegistry.RegisterForNavigation<TakePicture2Page, TakePicture2PageViewModel>();
+            containerRegistry.RegisterForNavigation<TakePicture3Page, TakePicture3PageViewModel>();
+            containerRegistry.RegisterForNavigation<TakePicture4Page, TakePicture4PageViewModel>();
         }
     }
 }
